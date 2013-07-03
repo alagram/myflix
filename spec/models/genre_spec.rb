@@ -4,7 +4,7 @@ describe Genre do
   it "saves itself" do
     genre = Genre.new(name: "Romance")
     genre.save
-    expect(genre.name).to eq("Romance")
+    expect(Genre.first.name).to eq("Romance")
   end
 
   # shoulda matchers

@@ -4,7 +4,7 @@ describe Video do
   it "saves itself" do
     video = Video.new(title: "Salmon fishing", description: "Nice one", small_cover_url: "tmp/before_sunset.jpg", large_cover_url: "tmp/monk_large.jpg")
     video.save
-    expect(video.title).to eq("Salmon fishing")
+    expect(Video.first.title).to eq("Salmon fishing")
   end
 
   it "is invalid without a title" do
