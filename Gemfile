@@ -20,4 +20,12 @@ group :production do
   gem 'pg'
 end
 
+group :test do
+  gem 'shoulda-matchers'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+end
+
 gem 'jquery-rails'
