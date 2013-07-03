@@ -7,6 +7,15 @@ describe Video do
     expect(video.title).to eq("Salmon fishing")
   end
 
+  it "is invalid without a title" do
+    expect(Video.new(title: nil)).to have(1).errors_on(:title)
+  end
+
+  it "is invalid without a description" do
+    expect(Video.new(description: nil)).to have(1).errors_on(:description)
+  end
+
+  # Shoulda matchers
   it { should validate_presence_of(:title) }
 
   it { should validate_presence_of(:description) }

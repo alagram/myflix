@@ -7,6 +7,7 @@ describe Genre do
     expect(genre.name).to eq("Romance")
   end
 
+  # shoulda matchers
   it { should have_many(:video_genres) }
   it { should have_many(:videos).through(:video_genres) }
 
