@@ -1,8 +1,7 @@
 class VideosController < ApplicationController
-
+  before_filter :require_user
   def index
-    @videos = Video.order("created_at DESC")
-    @genre = Genre.all
+    @genres = Genre.all
   end
 
   def show
