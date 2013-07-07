@@ -1,9 +1,10 @@
--@genre.each do |genre|
-  %article.video_category
-    %header
-      %h3= link_to "#{genre.name}", "#{genre_path(genre)}"
-  .videos.row
-    - genre.videos.each do |video|
-      .video.span2
-        = link_to video_path(video), nil do
-          %img{src: "#{video.small_cover_url}"}
+-@genres.each do |genre|
+  -unless genre.videos.empty?
+    %article.video_category
+      %header
+        %h3= link_to "#{genre.name}", "#{genre_path(genre)}"
+    .videos.row
+      - genre.recent_videos.each do |video|
+        .video.span2
+          = link_to video_path(video), nil do
+            %img{src: "#{video.small_cover_url}"}

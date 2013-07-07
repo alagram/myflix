@@ -2,7 +2,7 @@
   %header.clearfix
     %h1= @genre.name
   %article.row
-    - @genre.videos.each do |video|
+    - @genre.recent_videos.each do |video|
       .video.span2
         = link_to video_path(video), nil do 
           %img{src: "#{video.small_cover_url}"}  
