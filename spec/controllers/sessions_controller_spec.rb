@@ -15,19 +15,19 @@ describe SessionsController do
 
   describe "POST create" do
     context "with valid credentials" do
-
-      before do
+      it "sets the signed in user in the session" do
         ted = Fabricate(:user)
         post :create, email: ted.email, password: ted.password
-      end
-
-      it "sets the signed in user in the session" do
-        expect(session[:user_id]).to eq(1)
+        expect(session[:user_id]).to eq(ted.id)
       end
       it "redirects to the home_path" do
+        ted = Fabricate(:user)
+        post :create, email: ted.email, password: ted.password
         expect(response).to redirect_to home_path
       end
       it "sets notice" do
+        ted = Fabricate(:user)
+        post :create, email: ted.email, password: ted.password
         expect(flash[:notice]).not_to be_blank
       end
     end
