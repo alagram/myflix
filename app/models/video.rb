@@ -16,9 +16,9 @@ class Video < ActiveRecord::Base
   end
 
   private
-  
+
   def review_rating
-    reviews.map { |review| review.rating }
+    reviews.map(&:rating)
   end
 
 end
