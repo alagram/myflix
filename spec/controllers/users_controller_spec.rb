@@ -29,7 +29,7 @@ describe UsersController do
         post :create, user: { email: "al@example.com", password: "12345" }
       end
 
-      it "renders new template when input in invalid " do
+      it "does not create user record" do
         expect(User.count).to eq(0)
       end
 
