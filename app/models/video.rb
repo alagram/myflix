@@ -11,9 +11,12 @@ class Video < ActiveRecord::Base
   end
 
   def average_rating
+    return 0 if review_rating.empty?
     (review_rating.inject(:+).to_f / review_rating.size).round(1)
   end
 
+  private
+  
   def review_rating
     reviews.map { |review| review.rating }
   end

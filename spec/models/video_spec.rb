@@ -10,6 +10,10 @@ describe Video do
   it { should have_many(:reviews).order("created_at DESC") }
 
   describe "#average_rating" do
+    it "returns 0 if no rating is associated with a video" do
+      video = Fabricate(:video)
+      expect(Video.first.average_rating).to eq(0)
+    end
     it "returns a rating if one rating is associated with a video" do
       review = Fabricate(:review)
       video = Fabricate(:video)
