@@ -9,6 +9,9 @@ describe Video do
   it { should have_many(:genres).through(:video_genres) }
   it { should have_many(:reviews).order("created_at DESC") }
 
+  it { should have_many(:queue_items) }
+  it { should have_many(:users).through(:queue_items) }
+
   describe "#average_rating" do
     it "returns 0 if no rating is associated with a video" do
       video = Fabricate(:video)
