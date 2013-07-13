@@ -2,6 +2,8 @@ class Video < ActiveRecord::Base
   has_many :video_genres
   has_many :genres, :through => :video_genres
   has_many :reviews, order: "created_at DESC"
+  has_many :queue_items
+  has_many :users, :through => :queue_items
 
   validates_presence_of :title, :description
 
