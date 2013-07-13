@@ -24,6 +24,8 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'fabrication'
+  gem 'faker'
 end
 
 group :test, :development do
