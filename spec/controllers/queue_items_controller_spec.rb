@@ -60,12 +60,58 @@ describe QueueItemsController do
         post :create, video_id: video.id
         expect(QueueItem.count).to eq(1)
       end
+      it "sets notice" do
+        current_user = Fabricate(:user)
+        session[:user_id] = current_user.id
+        video = Fabricate(:video)
+        post :create, video_id: video.id
+        expect(flash[:notice]).not_to be_blank
+      end
     end
 
     context "with unauthenticated users" do
       it "redirects to sign in path" do
         video = Fabricate(:video)
         post :create, video_id: video.id
+        expect(response).to redirect_to(sign_in_path)
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    context "with authenticated users" do
+      it "sets @queue_item variable" do
+        current_user = Fabricate(:user)
+        session[:user_id] = current_user.id
+        video = Fabricate(:video)
+        queue_item = QueueItem.create(video: video, user: current_user)
+        delete :destroy, video_id: video.id, id: queue_item.id
+        expect(assigns(:queue_item)).to eq(queue_item)
+      end
+      it "deletes a queue item" do
+        current_user = Fabricate(:user)
+        session[:user_id] = current_user.id
+        video = Fabricate(:video)
+        queue_item = QueueItem.create(video: video, user: current_user)
+        delete :destroy, video_id: video.id, id: queue_item.id
+        expect(QueueItem.count).to eq(0)
+      end
+      it "redirect_to my_queue path" do
+        current_user = Fabricate(:user)
+        session[:user_id] = current_user.id
+        video = Fabricate(:video)
+        queue_item = QueueItem.create(video: video, user: current_user)
+        delete :destroy, video_id: video.id, id: queue_item.id
+        expect(response).to redirect_to(my_queue_path)
+      end
+    end
+
+    context "with unauthenticated users" do
+      it "redirects to sign in path" do
+        video = Fabricate(:video)
+        current_user = Fabricate(:user)
+        queue_item = QueueItem.create(video: video, user: current_user)
+        delete :destroy, video_id: video.id, id: queue_item.id
         expect(response).to redirect_to(sign_in_path)
       end
     end

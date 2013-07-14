@@ -30,6 +30,6 @@
                 - queue_item.video.genres.each do |genre|
                   = link_to genre.name, genre_path(genre)
               %td
-                = link_to "", method: :post do
+                = link_to video_queue_item_path(queue_item.video, queue_item), method: 'delete', confirm: "Are you sure?" do
                   %i.icon-remove
         = button_to "Update Instant Queue", nil, class: "btn"
