@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
+  helper_method :video_already_queued?
 
   def require_user
     redirect_to sign_in_path unless current_user
@@ -8,5 +9,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def video_already_queued?(video)
+    current_user.queue_items.map(&:video).include?(video)
   end
 end
