@@ -9,9 +9,8 @@
           %span Average Rating: #{@video.average_rating} / 5
         %p= @video.description
         .actions
-          %a.btn.btn-primary(href="") Watch Now
           - unless video_already_queued?(@video)
-            = link_to "+ My Queue", video_queue_items_path(@video), method: 'post', class: 'btn'
+            = link_to "+ My Queue", queue_items_path(video_id: @video.id), method: 'post', class: 'btn'
           
 
 %section.reviews.container

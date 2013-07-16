@@ -14,11 +14,11 @@ Myflix::Application.routes.draw do
     end
 
     resources :reviews, only: [:create]
-    resources :queue_items, only: [:create, :destroy]
   end
 
   resources :genres, only: [:show]
   resources :users, only: [:create]
   resources :sessions, only: [:create]
+  resources :queue_items, only: [:create, :destroy]
 
 end

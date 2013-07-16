@@ -16,20 +16,16 @@
           %tbody
           - @queue_items.each do |queue_item|
             %tr
+              %td= queue_item.position
               %td
-                %input(type="text" value="#{queue_item.id}")
-              %td
-                = link_to queue_item.video.title, video_path(queue_item.video)
+                = link_to queue_item.video_title, video_path(queue_item.video)
               %td
                 = button_to "Play", nil, class: "btn"
-              %td
-                %select(name="")
-                  - queue_item.video.reviews.where(user_id: current_user, video_id: queue_item.video).each do |review|
-                    = options_for_select([review.rating].map {|num| [pluralize(num, "Star")]})
+              %td= queue_item.rating
               %td
                 - queue_item.video.genres.each do |genre|
                   = link_to genre.name, genre_path(genre)
               %td
-                = link_to video_queue_item_path(queue_item.video, queue_item), method: 'delete', confirm: "Are you sure?" do
+                = link_to queue_item_path(queue_item), method: 'delete', confirm: "Are you sure?" do
                   %i.icon-remove
         = button_to "Update Instant Queue", nil, class: "btn"
