@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.email.downcase!
 
     if @user.save
       redirect_to sign_in_path
