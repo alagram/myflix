@@ -4,14 +4,13 @@ describe ReviewsController do
   describe "POST create" do
 
     let(:video) { video = Fabricate(:video) }
+    before { set_current_user }
 
     context "with authenticated users" do
 
-      let(:current_user) { Fabricate(:user) }
-      before { session[:user_id] = current_user.id }
+      let(:jack) { current_user }
 
       context "with valid inputs" do
-
         before do
           post :create, review: Fabricate.attributes_for(:review), video_id: video.id
         end
@@ -23,7 +22,7 @@ describe ReviewsController do
           expect(Review.first.video).to eq(video)
         end
         it "creates a review associated with signed in user" do
-          expect(Review.first.user).to eq(current_user)
+          expect(Review.first.user).to eq(jack)
         end
         it "redirects to the video show page" do
           expect(response).to redirect_to video
@@ -51,11 +50,8 @@ describe ReviewsController do
       end
     end
 
-    context "with unauthenticated users" do
-      it "redirects to the sign in path" do
-        post :create, review: Fabricate.attributes_for(:review), video_id: video.id
-        expect(response).to redirect_to sign_in_path
-      end
+    it_behaves_like "unauthenticated user" do
+      let(:action) { post :create, review: Fabricate.attributes_for(:review), video_id: video.id }
     end
   end
 end
