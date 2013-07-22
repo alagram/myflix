@@ -7,7 +7,7 @@ describe SessionsController do
       expect(response).to render_template :new
     end
     it "redirects to home_path if user is logged in" do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       get :new
       expect(response).to redirect_to home_path
     end
@@ -15,19 +15,18 @@ describe SessionsController do
 
   describe "POST create" do
     context "with valid credentials" do
+
+      let(:ted) { Fabricate(:user) }
+
+      before { post :create, email: ted.email, password: ted.password }
+
       it "sets the signed in user in the session" do
-        ted = Fabricate(:user)
-        post :create, email: ted.email, password: ted.password
         expect(session[:user_id]).to eq(ted.id)
       end
       it "redirects to the home_path" do
-        ted = Fabricate(:user)
-        post :create, email: ted.email, password: ted.password
         expect(response).to redirect_to home_path
       end
       it "sets notice" do
-        ted = Fabricate(:user)
-        post :create, email: ted.email, password: ted.password
         expect(flash[:notice]).not_to be_blank
       end
     end
@@ -54,7 +53,7 @@ describe SessionsController do
   describe "GET destroy" do
 
     before do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       get :destroy
     end
 
