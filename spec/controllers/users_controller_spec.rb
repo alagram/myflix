@@ -42,4 +42,23 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do
+    context "with authenticated users" do
+      before { set_current_user }
+      it "sets @user instance variable" do
+        current_user
+        get :show, id: current_user.id
+        expect(assigns(:user)).to eq(current_user) 
+      end
+    end
+
+    context "with authenticated users" do
+      it "redirects to sign in path" do
+        user = Fabricate(:user)
+        get :show, id: user.id
+        expect(response).to redirect_to sign_in_path
+      end
+    end
+  end
 end
