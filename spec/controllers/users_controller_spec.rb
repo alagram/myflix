@@ -53,12 +53,8 @@ describe UsersController do
       end
     end
 
-    context "with authenticated users" do
-      it "redirects to sign in path" do
-        user = Fabricate(:user)
-        get :show, id: user.id
-        expect(response).to redirect_to sign_in_path
-      end
+    it_behaves_like "unauthenticated user" do
+      let(:action) { get :show, id: 1 }
     end
   end
 end
