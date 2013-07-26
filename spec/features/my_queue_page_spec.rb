@@ -15,7 +15,7 @@ feature "User interacts with the queue" do
 
     sign_in
 
-    find("a[href='/videos/#{@video1.id}']").click
+    click_video_on_home_page(@video1)
     expect(page).to have_content(@video1.title)
     click_link "+ My Queue"
     expect(page).to have_content(@video1.title)
@@ -39,7 +39,7 @@ feature "User interacts with the queue" do
 
   def add_video_to_queue(video)
     visit home_path
-    find("a[href='/videos/#{video.id}']").click
+    click_video_on_home_page(video)
     click_link "+ My Queue"
   end
 
