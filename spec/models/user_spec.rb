@@ -10,3 +10,18 @@ describe User do
    it { should have_many(:queue_items).order(:position) }
    it { should have_many(:videos).through(:queue_items) }
 end
+
+describe "#follows?" do
+  it "returns true if the user has a following relationship with another user" do
+    john = Fabricate(:user)
+    bob = Fabricate(:user)
+    Fabricate(:relationship, leader: john, follower: bob)
+    expect(bob.follows?(john)).to be_true
+  end
+  it "returns false if the user does not have a following relationship with another user" do
+    john = Fabricate(:user)
+    bob = Fabricate(:user)
+    Fabricate(:relationship, leader: john, follower: bob)
+    expect(john.follows?(bob)).to be_false
+  end
+end

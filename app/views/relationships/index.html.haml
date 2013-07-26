@@ -17,5 +17,5 @@
           %td.extra-padding= relationship.leader.videos.size
           %td.extra-padding= relationship.leader.leading_relationships.size
           %td.extra-padding
-            = link_to relationship, method: :delete do
+            = link_to relationship, method: 'delete', confirm: "Are you sure?" do
               %i.icon-remove
