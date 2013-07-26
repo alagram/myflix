@@ -42,4 +42,19 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do
+    context "with authenticated users" do
+      before { set_current_user }
+      it "sets @user instance variable" do
+        current_user
+        get :show, id: current_user.id
+        expect(assigns(:user)).to eq(current_user) 
+      end
+    end
+
+    it_behaves_like "unauthenticated user" do
+      let(:action) { get :show, id: 1 }
+    end
+  end
 end
