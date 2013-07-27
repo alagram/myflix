@@ -41,6 +41,23 @@ describe UsersController do
         expect(assigns(:user)).to be_instance_of(User)
       end
     end
+
+    context "email sending" do
+      it "sends out the email" do
+        post :create, user: Fabricate.attributes_for(:user)
+        expect(ActionMailer::Base.deliveries).to_not be_empty
+      end
+      it "sends to the right receipient" do
+        post :create, user: Fabricate.attributes_for(:user)
+        message = ActionMailer::Base.deliveries.last
+        expect(message.to).to eq([User.first.email])
+      end
+      it "has the right content" do
+        post :create, user: Fabricate.attributes_for(:user)
+        message = ActionMailer::Base.deliveries.last
+        expect(message.body).to include(User.first.email)
+      end
+    end
   end
 
   describe "GET show" do
