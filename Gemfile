@@ -16,6 +16,7 @@ group :development do
   gem 'sqlite3'
   gem 'pry'
   gem 'pry-nav'
+  gem 'letter_opener'
 end
 
 group :production do
