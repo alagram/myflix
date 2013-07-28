@@ -181,6 +181,13 @@ describe QueueItemsController do
         expect(queue_item1.reload.position).to eq(1)
       end
     end
+
+    context "when the queue is empty" do
+      it "redirects to my queue path" do
+        post :update_queue
+        expect(response).to redirect_to my_queue_path
+      end
+    end
   end
 
 end
