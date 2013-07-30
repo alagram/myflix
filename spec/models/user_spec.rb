@@ -6,9 +6,14 @@ describe User do
   it { should validate_presence_of(:full_name) }
   it { should validate_uniqueness_of(:email) }
 
-   it { should have_many(:reviews).order("created_at DESC") }
-   it { should have_many(:queue_items).order(:position) }
-   it { should have_many(:videos).through(:queue_items) }
+  it { should have_many(:reviews).order("created_at DESC") }
+  it { should have_many(:queue_items).order(:position) }
+  it { should have_many(:videos).through(:queue_items) }
+
+  it "generates a random token when the user is created" do
+    alice = Fabricate(:user)
+    expect(alice.token).to be_present
+  end
 end
 
 describe "#follows?" do

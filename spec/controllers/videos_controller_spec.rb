@@ -12,14 +12,14 @@ describe VideosController do
       end
 
       it "sets the @video variable if user is authenticated" do
-        get :show, id: video.id
+        get :show, id: video.token
         expect(assigns(:video)).to eq(video)
       end
 
       it "sets the @reviews variable if user is authenticated" do
         review1 = Fabricate(:review, video: video)
         review2 = Fabricate(:review, video: video)
-        get :show, id: video.id
+        get :show, id: video.token
         expect(assigns(:reviews)).to match_array([review1, review2])
       end
 
@@ -27,7 +27,7 @@ describe VideosController do
 
     context "with unauthenticated users" do
       it "redirects user to sign in page if user unauthenticated" do
-        get :show, id: video.id
+        get :show, id: video.token
         expect(response).to redirect_to sign_in_path
       end
     end

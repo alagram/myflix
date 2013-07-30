@@ -12,7 +12,7 @@ describe ReviewsController do
 
       context "with valid inputs" do
         before do
-          post :create, review: Fabricate.attributes_for(:review), video_id: video.id
+          post :create, review: Fabricate.attributes_for(:review), video_id: video.token
         end
         
         it "creates a review" do
@@ -31,27 +31,27 @@ describe ReviewsController do
 
       context "with invalid inputs" do
         it "does not create a review" do
-          post :create, review: { content: "Its ok" }, video_id: video.id
+          post :create, review: { content: "Its ok" }, video_id: video.token
           expect(Review.count).to eq(0)
         end
         it "renders the videos/show template" do
-          post :create, review: { content: "Its ok" }, video_id: video.id
+          post :create, review: { content: "Its ok" }, video_id: video.token
           expect(response).to render_template 'videos/show'
         end
         it "sets @video" do
-          post :create, review: { content: "Its ok" }, video_id: video.id
+          post :create, review: { content: "Its ok" }, video_id: video.token
           expect(assigns(:video)).to eq(video)
         end
         it "sets @review" do
           review = Fabricate(:review, video: video)
-          post :create, review: { content: "Its ok" }, video_id: video.id
+          post :create, review: { content: "Its ok" }, video_id: video.token
           expect(assigns(:reviews)).to match_array([review])
         end
       end
     end
 
     it_behaves_like "unauthenticated user" do
-      let(:action) { post :create, review: Fabricate.attributes_for(:review), video_id: video.id }
+      let(:action) { post :create, review: Fabricate.attributes_for(:review), video_id: video.token }
     end
   end
 end

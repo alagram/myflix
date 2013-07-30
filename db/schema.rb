@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130728062716) do
+ActiveRecord::Schema.define(:version => 20130729155503) do
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130728062716) do
     t.string   "full_name"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "token"
   end
 
   create_table "video_genres", :force => true do |t|

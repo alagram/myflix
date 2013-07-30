@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_filter :require_user
 
   def create
-    @video = Video.find(params[:video_id])
+    @video = Video.find_by_token(params[:video_id])
     @review = @video.reviews.build(params[:review].merge!(user: current_user))
 
     if @review.save
