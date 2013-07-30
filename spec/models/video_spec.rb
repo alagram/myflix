@@ -12,6 +12,11 @@ describe Video do
   it { should have_many(:queue_items) }
   it { should have_many(:users).through(:queue_items) }
 
+  it "generates a random token when a video is created" do
+    monk = Fabricate(:video)
+    expect(monk.token).to be_present
+  end
+
   describe "#average_rating" do
     it "returns 0 if no rating is associated with a video" do
       video = Fabricate(:video)
