@@ -16,7 +16,7 @@
 %section.reviews.container
   .row
     .span10.offset1
-      = form_for [@video, @review] do |f|
+      = bootstrap_form_for [@video, @review] do |f|
         %fieldset
           %label Rate this video
           = f.select :rating, options_for_video_reviews
