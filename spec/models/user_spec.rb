@@ -14,19 +14,33 @@ describe User do
     alice = Fabricate(:user)
     expect(alice.token).to be_present
   end
-end
 
-describe "#follows?" do
-  it "returns true if the user has a following relationship with another user" do
-    john = Fabricate(:user)
-    bob = Fabricate(:user)
-    Fabricate(:relationship, leader: john, follower: bob)
-    expect(bob.follows?(john)).to be_true
+  describe "#follows?" do
+    it "returns true if the user has a following relationship with another user" do
+      john = Fabricate(:user)
+      bob = Fabricate(:user)
+      Fabricate(:relationship, leader: john, follower: bob)
+      expect(bob.follows?(john)).to be_true
+    end
+    it "returns false if the user does not have a following relationship with another user" do
+      john = Fabricate(:user)
+      bob = Fabricate(:user)
+      Fabricate(:relationship, leader: john, follower: bob)
+      expect(john.follows?(bob)).to be_false
+    end
   end
-  it "returns false if the user does not have a following relationship with another user" do
-    john = Fabricate(:user)
-    bob = Fabricate(:user)
-    Fabricate(:relationship, leader: john, follower: bob)
-    expect(john.follows?(bob)).to be_false
+
+  describe "#follow" do
+    it "follows another user" do
+      alice = Fabricate(:user)
+      bob = Fabricate(:user)
+      alice.follow(bob)
+      expect(alice.follows?(bob)).to be_true
+    end
+    it "does not follow one's self" do
+      alice = Fabricate(:user)
+      alice.follow(alice)
+      expect(alice.follows?(alice)).to be_false
+    end
   end
 end
