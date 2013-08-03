@@ -26,7 +26,7 @@ dictator =  Video.create(title: "The Dictator", description: "This guy is mean..
 
 hangover3.genres << comedy
 america.genres << comedy
-sunset.genres << romance
+spring.genres << romance
 ted.genres << documentary
 spring.genres << action
 futurama.genres << action
