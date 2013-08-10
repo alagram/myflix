@@ -7,6 +7,8 @@ gem 'bootstrap_form'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'sidekiq'
 gem 'unicorn'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -4,6 +4,6 @@ module ApplicationHelper
   end
 
   def admin_options_for_genres
-    options_for_select(Genre.all.map {|genre| [genre.name, genre.id]})
+    Genre.all.map {|genre| [genre.name, genre.id]}
   end
 end
