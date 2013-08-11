@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810203207) do
+ActiveRecord::Schema.define(:version => 20130811075800) do
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130810203207) do
     t.string   "token"
     t.string   "large_cover"
     t.string   "small_cover"
+    t.string   "video_url"
   end
 
 end
