@@ -13,3 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+# Ignore all .evn files
+/.env
+# Ignore all image uploads
+/public/uploads/*
