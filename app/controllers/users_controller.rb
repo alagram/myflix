@@ -8,12 +8,26 @@ before_filter :require_user, only: [:show]
   def create
     @user = User.new(params[:user])
 
-    if @user.save
-      handle_invitation
-      MyflixMailer.send_welcome_email(@user).deliver
-      redirect_to sign_in_path
-    else
-      render :new
+    Stripe.api_key = "sk_test_Aljpxmr0B3B61NXZCx4eXOsG"
+    token = params[:stripeToken]
+
+    if @user.valid?
+      begin
+        charge = Stripe::Charge.create(
+          :amount => 999,
+          :currency => "usd",
+          :card => token,
+          :description => @user.email
+        )
+        @user.save
+        handle_invitation
+        MyflixMailer.send_welcome_email(@user).deliver
+        flash[:success] = "You have successfully registered. Please sign in."
+        redirect_to sign_in_path
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        render :new
+      end
     end
   end
 
