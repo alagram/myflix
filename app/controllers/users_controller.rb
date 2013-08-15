@@ -10,7 +10,7 @@ before_filter :require_user, only: [:show]
 
     Stripe.api_key = "sk_test_Aljpxmr0B3B61NXZCx4eXOsG"
     token = params[:stripeToken]
-
+ 
     if @user.valid?
       begin
         charge = Stripe::Charge.create(
@@ -28,6 +28,8 @@ before_filter :require_user, only: [:show]
         flash[:error] = e.message
         render :new
       end
+    else
+      render :new
     end
   end
 

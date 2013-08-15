@@ -1,3 +1,9 @@
+= content_for :head do
+  %script(src="https://js.stripe.com/v2/")
+  :javascript
+    Stripe.setPublishableKey('pk_test_pBntXt3AI9IwkdgjAHp6eUcA');
+  = javascript_include_tag 'payments'
+
 %section.register.container
   .row
     .span10.offset1
@@ -9,6 +15,22 @@
           = f.password_field :password
           = f.text_field :full_name, label: "Full Name"
           = hidden_field_tag :invitation_token, @invitation_token
+        %fieldset.credit_card
+          .control-group
+            %span.payment-errors
+          .control-group
+            %label.control-label Credit Card Number
+            .controls
+              %input.span3.card-number(type="text")
+          .control-group
+            %label.control-label Security Code
+            .controls
+              %input.span3.card-cvc(type="text")
+          .control-group
+            %label.control-label Expiration
+            .controls
+              = select_month(Date.today, {add_month_numbers: true},  class: 'span2 card-expiry-month', name: nil)
+              = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 4}, class: 'span1 card-expiry-year', name: nil)
         %fieldset.actions.control-group
           .controls
-            %script(src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button" data-key="pk_test_pBntXt3AI9IwkdgjAHp6eUcA" data-amount="999" data-description="MyFlix Payment ($9.99)" data-currency="usd")
+            %input(type="submit" value="Sign Up" class="btn payment_submit")
