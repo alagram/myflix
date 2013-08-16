@@ -1,13 +1,13 @@
 = content_for :head do
   %script(src="https://js.stripe.com/v2/")
   :javascript
-    Stripe.setPublishableKey('pk_test_pBntXt3AI9IwkdgjAHp6eUcA');
+    Stripe.setPublishableKey("#{ENV['STRIPE_PUBLISHABLE_KEY']}");
   = javascript_include_tag 'payments'
 
 %section.register.container
   .row
     .span10.offset1
-      = bootstrap_form_for @user, html: {class: 'form-horizontal'} do |f|
+      = bootstrap_form_for @user, html: {class: 'form-horizontal', id: 'payment-form'} do |f|
         %header
           %h1 Register
         %fieldset
@@ -15,7 +15,22 @@
           = f.password_field :password
           = f.text_field :full_name, label: "Full Name"
           = hidden_field_tag :invitation_token, @invitation_token
+        %fieldset.credit_card
+          .control-group
+            %span.payment-errors
+          .control-group
+            %label.control-label Credit Card Number
+            .controls
+              %input.span3(type="text" data-stripe="number")
+          .control-group
+            %label.control-label Security Code
+            .controls
+              %input.span3(type="text" data-stripe="cvc")
+          .control-group
+            %label.control-label Expiration
+            .controls
+              = select_month(Date.today, {add_month_numbers: true},  class: 'span2', data: {stripe: "exp-month"}, name: nil)
+              = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 4}, class: 'span1', data: {stripe: "exp-year"}, name: nil)
         %fieldset.actions.control-group
           .controls
-            %script(src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button" data-key="#{ENV['STRIPE_PUBLISHABLE_KEY']}" data-amount="999" data-name="Myflix Sign Up Charge" data-description="$9.99 to sign up for the best video service" data currency="usd")
-          
+            %input(type="submit" value="Sign Up" class="btn")

@@ -1,26 +1,30 @@
 jQuery(function($) {
-  $('#new_user').submit(function(event) {
+  $('#payment-form').submit(function(event) {
     var $form = $(this);
-    $form.find('.payment_submit').prop('disabled', true);
-    Stripe.createToken({
-      number: $('.card-number').val(),
-      cvc: $('.card-cvc').val(),
-      exp_month: $('.card-expiry-month').val(),
-      exp_year: $('.card-expiry-year').val()
-    }, stripeResponseHandler);
+
+    // Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true);
+
+    Stripe.createToken($form, stripeResponseHandler);
+
+    // Prevent the form from submitting with the default action
     return false;
   });
-
-  var stripeResponseHandler = function(status, response) {
-    var $form = $('#new_user');
-
-    if(response.error) {
-      $form.find('.payment-errors').text(response.error.message);
-      $form.find('.payment_submit').prop('disabled', false);
-    } else {
-      var token = response.id;
-      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-      $form.get(0).submit();
-    }
-  };
 });
+
+var stripeResponseHandler = function(status, response) {
+  var $form = $('#payment-form');
+
+  if (response.error) {
+    // Show the errors on the form
+    $form.find('.payment-errors').text(response.error.message);
+    $form.find('button').prop('disabled', false);
+  } else {
+    // token contains id, last4, and card type
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+    // and submit
+    $form.get(0).submit();
+  }
+};
