@@ -20,3 +20,5 @@
 /.env
 # Ignore all image uploads
 /public/uploads/*
+# Ignore application configuration
+/config/application.yml

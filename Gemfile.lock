@@ -73,6 +73,9 @@ GEM
     fabrication (2.7.2)
     faker (1.1.2)
       i18n (~> 0.5)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     fog (1.14.0)
       builder
       excon (~> 0.25.0)
@@ -225,6 +228,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   fabrication
   faker
+  figaro
   fog
   haml-rails
   jquery-rails
