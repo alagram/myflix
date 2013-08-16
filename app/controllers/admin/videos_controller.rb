@@ -1,6 +1,4 @@
-class Admin::VideosController < ApplicationController
-  before_filter :require_user
-  before_filter :require_admin
+class Admin::VideosController < AdminsController
 
   def new
     @video = Video.new
@@ -17,11 +15,4 @@ class Admin::VideosController < ApplicationController
     end
   end
 
-  private
-  def require_admin
-    unless current_user.admin?
-      flash[:error] = "You are not authorised to do that."
-      redirect_to home_path
-    end
-  end
 end

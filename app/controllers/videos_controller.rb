@@ -1,5 +1,4 @@
-class VideosController < ApplicationController
-  before_filter :require_user
+class VideosController < AuthenticatedController
   
   def index
     @genres = Genre.all
