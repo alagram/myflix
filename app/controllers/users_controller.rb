@@ -18,13 +18,14 @@ before_filter :require_user, only: [:show]
         @user.save
         handle_invitation
         MyflixMailer.send_welcome_email(@user).deliver
-        flash[:success] = "You have successfully registered. Please sign in."
+        flash[:success] = "Thank you for registering with Myflix. Please sign in."
         redirect_to sign_in_path
       else
         flash[:error] = charge.error_message
         render :new
       end
     else
+      flash[:error] = "Invalid user information. Please check errors below."
       render :new
     end
   end
