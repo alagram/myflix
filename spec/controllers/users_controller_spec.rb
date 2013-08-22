@@ -89,11 +89,9 @@ describe UsersController do
 
       it "does not charge the card" do
         StripeWrapper::Charge.should_not_receive(:create)
-        post :create, user: { email: "john@example.com" }
       end
-      
+
       it "does not send out email with invalid inputs" do
-        post :create, user: { email: "alice@example.com" }
         expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
