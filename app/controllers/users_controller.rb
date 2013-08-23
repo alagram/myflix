@@ -8,19 +8,24 @@ before_filter :require_user, only: [:show]
   def create
     @user = User.new(params[:user])
  
-    if @user.save
-      handle_invitation
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      Stripe::Charge.create(
+    if @user.valid?
+      charge = StripeWrapper::Charge.create(
         :amount => 999,
-        :currency => "usd",
         :card => params[:stripeToken],
         :description => "Sign up charge for #{@user.email}"
       )
-      MyflixMailer.send_welcome_email(@user).deliver
-      flash[:success] = "You have successfully registered. Please sign in."
-      redirect_to sign_in_path
+      if charge.successful?
+        @user.save
+        handle_invitation
+        MyflixMailer.send_welcome_email(@user).deliver
+        flash[:success] = "Thank you for registering with Myflix. Please sign in."
+        redirect_to sign_in_path
+      else
+        flash[:error] = charge.error_message
+        render :new
+      end
     else
+      flash[:error] = "Invalid user information. Please check errors below."
       render :new
     end
   end
