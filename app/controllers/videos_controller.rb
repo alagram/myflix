@@ -5,7 +5,7 @@ class VideosController < AuthenticatedController
   end
 
   def show
-    @video = Video.find_by_token(params[:id])
+    @video = Video.find_by_token(params[:id]).decorate
     @reviews = @video.reviews
     @review = Review.new
   end
