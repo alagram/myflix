@@ -9,7 +9,4 @@ class VideoDecorator < Draper::Decorator
     end
   end
 
-  def rating
-    model.reviews.average(:rating).round(1) if model.reviews.average(:rating)
-  end
 end
