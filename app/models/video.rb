@@ -21,15 +21,8 @@ class Video < ActiveRecord::Base
     token
   end
 
-  def average_rating
-    return 0 if review_rating.empty?
-    (review_rating.inject(:+).to_f / review_rating.size).round(1)
-  end
-
-  private
-
-  def review_rating
-    reviews.map(&:rating)
+  def rating
+    reviews.average(:rating).round(1) if reviews.average(:rating)
   end
 
 end

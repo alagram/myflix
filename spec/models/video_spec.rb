@@ -17,16 +17,12 @@ describe Video do
     expect(monk.token).to be_present
   end
 
-  describe "#average_rating" do
-    it "returns 0 if no rating is associated with a video" do
-      video = Fabricate(:video)
-      expect(Video.first.average_rating).to eq(0)
-    end
+  describe "#rating" do
     it "returns a rating if one rating is associated with a video" do
       review = Fabricate(:review)
       video = Fabricate(:video)
       video.reviews << review
-      expect(Video.first.average_rating).to eq(review.rating)
+      expect(Video.first.rating).to eq(review.rating)
     end
     it "returns average rating if video has more ratings" do
       review = Fabricate(:review)
@@ -35,7 +31,7 @@ describe Video do
       video.reviews << review
       video.reviews << review2
       total_rating = (review.rating + review2.rating).to_f
-      expect(Video.first.average_rating).to eq((total_rating / 2).round(1))
+      expect(Video.first.rating).to eq((total_rating / 2).round(1))
     end
   end
 
