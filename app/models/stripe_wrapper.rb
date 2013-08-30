@@ -25,4 +25,25 @@ module StripeWrapper
       response.present?
     end
   end
+
+  class Customer
+    attr_reader :response
+
+    def initialize(options={})
+      @response = options[:response]
+    end
+
+    def self.create(options={})
+      response = Stripe::Customer.create(
+        card: options[:card],
+        email: options[:user].email,
+        plan: "base"
+      )
+      new(response: response)
+    end
+
+    def successful?
+      response.present?
+    end
+  end
 end
