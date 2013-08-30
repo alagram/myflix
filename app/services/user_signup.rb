@@ -8,12 +8,11 @@ class UserSignup
 
   def sign_up(stripe_token, invitation_token)
     if @user.valid?
-      charge = StripeWrapper::Charge.create(
-        :amount => 999,
-        :card => stripe_token,
-        :description => "Sign up charge for #{@user.email}"
+      customer = StripeWrapper::Customer.create(
+        :user => @user,
+        :card => stripe_token
       )
-      if charge.successful?
+      if customer.successful?
         @user.save
         handle_invitation(invitation_token)
         MyflixMailer.send_welcome_email(@user).deliver
@@ -21,7 +20,7 @@ class UserSignup
         self
       else
         @status = :failed
-        @error_message = charge.error_message
+        @error_message = customer.error_message
         self
       end
     else
@@ -35,16 +34,16 @@ class UserSignup
     @status == :success
   end
 
- private
+  private
 
  
- def handle_invitation(invitation_token)
-   if invitation_token.present?
+  def handle_invitation(invitation_token)
+    if invitation_token.present?
       invitation = Invitation.where(token: invitation_token).first
       @user.follow(invitation.inviter)
       invitation.inviter.follow(@user)
       invitation.update_column(:token, nil)
     end
- end
+  end
 
 end
