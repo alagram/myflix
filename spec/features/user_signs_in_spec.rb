@@ -1,20 +1,16 @@
 require 'spec_helper'
 
 feature 'User signs in' do
-  background do
-    @user = Fabricate(:user, full_name: "Kofi Agram")
-  end
-
   scenario "with existing username" do
-    sign_in(@user)
-    expect(page).to have_content "Kofi Agram"
+    alice = Fabricate(:user)
+    sign_in(alice)
+    expect(page).to have_content alice.full_name
   end
 
-  scenario "with incorrect username" do
-    visit sign_in_path
-    fill_in "Email Address", with: @user.email
-    fill_in "Password", with: "54321"
-    click_button "Sign in"
-    expect(page).to have_content "Invalid email or password."
+  scenario "with deactivated user" do
+    alice = Fabricate(:user, active: false)
+    sign_in(alice)
+    expect(page).not_to have_content(alice.full_name)
+    expect(page).to have_content("Your account has been suspended, please contact customer service.")
   end
 end

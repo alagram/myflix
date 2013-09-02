@@ -13,6 +13,7 @@ gem 'fog'
 gem 'stripe'
 gem 'figaro'
 gem 'draper', '~> 1.0'
+gem 'stripe_event'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: card[number]=4242424242424242&card[exp_month]=8&card[exp_year]=2014&card[cvc]=314
+      string: card[number]=4242424242424242&card[exp_month]=8&card[exp_year]=2017&card[cvc]=314
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 19 Aug 2013 22:54:56 GMT
+      - Fri, 30 Aug 2013 18:53:07 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
@@ -46,22 +46,22 @@ http_interactions:
       - '300'
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"id\": \"tok_2PrGMtrP9PpeE4\",\n  \"livemode\": false,\n  \"created\":
-        1376952896,\n  \"used\": false,\n  \"object\": \"token\",\n  \"type\": \"card\",\n
-        \ \"card\": {\n    \"id\": \"card_2PrGcOTNrrfz4s\",\n    \"object\": \"card\",\n
+      string: ! "{\n  \"id\": \"tok_2Tuq3XlZohn5TZ\",\n  \"livemode\": false,\n  \"created\":
+        1377888787,\n  \"used\": false,\n  \"object\": \"token\",\n  \"type\": \"card\",\n
+        \ \"card\": {\n    \"id\": \"card_2TuqgMUS8L9tnd\",\n    \"object\": \"card\",\n
         \   \"last4\": \"4242\",\n    \"type\": \"Visa\",\n    \"exp_month\": 8,\n
-        \   \"exp_year\": 2014,\n    \"fingerprint\": \"LQEcKvmcmISI9MHt\",\n    \"customer\":
+        \   \"exp_year\": 2017,\n    \"fingerprint\": \"LQEcKvmcmISI9MHt\",\n    \"customer\":
         null,\n    \"country\": \"US\",\n    \"name\": null,\n    \"address_line1\":
         null,\n    \"address_line2\": null,\n    \"address_city\": null,\n    \"address_state\":
         null,\n    \"address_zip\": null,\n    \"address_country\": null\n  }\n}\n"
     http_version: 
-  recorded_at: Mon, 19 Aug 2013 22:54:56 GMT
+  recorded_at: Fri, 30 Aug 2013 18:53:07 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&card=tok_2PrGMtrP9PpeE4&description=a%20valid%20charge
+      string: amount=999&currency=usd&card=tok_2Tuq3XlZohn5TZ&description=a%20valid%20charge
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -87,35 +87,35 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 19 Aug 2013 22:54:59 GMT
+      - Fri, 30 Aug 2013 18:53:10 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
       - '931'
       Connection:
       - keep-alive
-      Access-Control-Max-Age:
-      - '300'
       Access-Control-Allow-Credentials:
       - 'true'
       Cache-Control:
       - no-cache, no-store
+      Access-Control-Max-Age:
+      - '300'
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"id\": \"ch_2PrGCNbpM53LGv\",\n  \"object\": \"charge\",\n
-        \ \"created\": 1376952899,\n  \"livemode\": false,\n  \"paid\": true,\n  \"amount\":
+      string: ! "{\n  \"id\": \"ch_2TuqZ7OEu5JrKH\",\n  \"object\": \"charge\",\n
+        \ \"created\": 1377888790,\n  \"livemode\": false,\n  \"paid\": true,\n  \"amount\":
         999,\n  \"currency\": \"usd\",\n  \"refunded\": false,\n  \"card\": {\n    \"id\":
-        \"card_2PrGcOTNrrfz4s\",\n    \"object\": \"card\",\n    \"last4\": \"4242\",\n
-        \   \"type\": \"Visa\",\n    \"exp_month\": 8,\n    \"exp_year\": 2014,\n
+        \"card_2TuqgMUS8L9tnd\",\n    \"object\": \"card\",\n    \"last4\": \"4242\",\n
+        \   \"type\": \"Visa\",\n    \"exp_month\": 8,\n    \"exp_year\": 2017,\n
         \   \"fingerprint\": \"LQEcKvmcmISI9MHt\",\n    \"customer\": null,\n    \"country\":
         \"US\",\n    \"name\": null,\n    \"address_line1\": null,\n    \"address_line2\":
         null,\n    \"address_city\": null,\n    \"address_state\": null,\n    \"address_zip\":
         null,\n    \"address_country\": null,\n    \"cvc_check\": \"pass\",\n    \"address_line1_check\":
         null,\n    \"address_zip_check\": null\n  },\n  \"captured\": true,\n  \"refunds\":
-        [],\n  \"balance_transaction\": \"txn_2PrGAi6cdFs2IV\",\n  \"failure_message\":
+        [],\n  \"balance_transaction\": \"txn_2TuqyqltOfxlUI\",\n  \"failure_message\":
         null,\n  \"failure_code\": null,\n  \"amount_refunded\": 0,\n  \"customer\":
         null,\n  \"invoice\": null,\n  \"description\": \"a valid charge\",\n  \"dispute\":
         null\n}\n"
     http_version: 
-  recorded_at: Mon, 19 Aug 2013 22:54:59 GMT
+  recorded_at: Fri, 30 Aug 2013 18:53:10 GMT
 recorded_with: VCR 2.5.0
