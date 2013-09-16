@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-before_filter :require_user, only: [:show]
+before_filter :require_user, only: [:show, :edit]
 
   def new
     @user = User.new
@@ -32,6 +32,10 @@ before_filter :require_user, only: [:show]
     else
       redirect_to expired_token_path
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
   
 end

@@ -72,4 +72,20 @@ describe UsersController do
       expect(response).to redirect_to expired_token_path
     end
   end
+
+  describe "GET edit" do
+    context "with authenticated user" do
+      it "sets the @user instance variable" do
+        set_current_user
+        user = current_user
+        get :edit, id: user.id
+        expect(assigns(:user)).to eq(user)
+      end
+    end
+
+    it_behaves_like "unauthenticated user" do
+      user = Fabricate(:user)
+      let(:action) { get :edit, id: user.id }
+    end
+  end
 end
