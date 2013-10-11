@@ -34,7 +34,7 @@ describe VideosController do
     
   end
 
-  describe "POST show" do
+  describe "POST search" do
     
     let(:toy_story) { Fabricate(:video, title: "Toy Story") }
 
